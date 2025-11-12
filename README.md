@@ -118,60 +118,21 @@ Display all homework submissions from the East region.
 - `class` — string (class/section)
 - `homework_status` — string (e.g. "submitted" / "not submitted")
 - `quiz_score` — numeric
-- `quiz_date` — ISO date (YYYY-MM-DD)
-- `region` — string
+DUMROO — AI natural-language data query for admins. Translates English -> Pandas filters and enforces admin scope (grade + region).
 
-Make sure `data.csv` uses these headers or adapt `app.py` to your schema.
+Quick start (PowerShell):
+```powershell
+python -m venv .venv; .\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+setx GOOGLE_API_KEY "your_gemini_api_key_here"  # restart PowerShell after this
+streamlit run app.py  # then open http://localhost:8501
+```
 
----
+Data columns expected: student_name, grade, class, homework_status, quiz_score, quiz_date (YYYY-MM-DD), region.
 
-## Example queries to try
+Examples: "Which students haven’t submitted homework?" | "Grade 8 students with quiz_score > 70".
 
-<<<<<<< HEAD
-- "Which students haven’t submitted their homework yet?"
-- "Show students in grade 8 with quiz_score > 70"
-- "List upcoming quizzes for the East region"
+Security: never commit API keys; the app always applies the admin's role-scope filter before returning results.
 
-The model suggests a Pandas filter; the app sanitizes it and enforces the admin scope before running.
+This README is intentionally minimal. Ask if you want it even shorter (one line) or prefer a single-sentence usage example added.
 
----
-
-## Security notes
-
-- Never commit API keys. Use environment variables or secure secrets management.
-- The demo enforces a final programmatic filter (grade + region) to limit visibility.
-- Treat the model output as untrusted text — always sanitize and validate before evaluation.
-
----
-
-## Extending this project
-=======
-Working of Project 
-
-
-<img width="1920" height="1080" alt="Screenshot 2025-11-12 235048" src="https://github.com/user-attachments/assets/d27e431b-b953-4906-80b6-c3a09ea274f3" />
-
-
-<img width="1920" height="1080" alt="Screenshot 2025-11-12 235040" src="https://github.com/user-attachments/assets/987fd5cb-3746-424d-8e3b-e5813f370b42" />
-
-
->>>>>>> 5b3f33b56418625dbbe52c2cfd83694f101b5ecb
-
-- Swap `data.csv` for a database (Postgres, MySQL, MongoDB) and push filtering to the DB.
-- Add authentication (JWT / sessions) and persist admin scopes per user.
-- Improve prompt engineering to support follow-ups and clarifying questions.
-
-<<<<<<< HEAD
----
-
-## License & contact
-
-Educational / assignment use. Modify freely for learning. For questions, open an issue in the repository.
-
----
-
-Quick verification: after editing, run the PowerShell quick start steps above to confirm the demo starts and the UI loads at http://localhost:8501.
-=======
-This project is for educational use under the Assignment.
-Feel free to modify or extend for learning purposes.
->>>>>>> 5b3f33b56418625dbbe52c2cfd83694f101b5ecb
