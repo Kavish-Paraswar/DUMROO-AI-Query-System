@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 import streamlit as st
 
 # ---- CONFIG ----
-os.environ["GOOGLE_API_KEY"] = "AIzaSyDvMpQ94onIH7JZ0SoDasKIFsKDoLdvti8"
+os.environ["GOOGLE_API_KEY"] = "YOUR_GEMINI_API_KEY_HERE"
 genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 
 # ---- Load dataset ----
