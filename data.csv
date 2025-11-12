@@ -1,0 +1,5 @@
+student_name,grade,class,homework_status,quiz_score,quiz_date,region
+Riya,8,A,submitted,82,2025-11-10,East
+Arjun,8,A,not submitted,0,2025-11-09,East
+Maya,9,B,submitted,91,2025-11-10,North
+Tanvi,8,B,not submitted,0,2025-11-11,East
