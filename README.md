@@ -9,7 +9,6 @@ It translates English queries into safe Pandas filters (using a generative model
 
 1. Create a Python 3.10+ virtual environment and activate it.
 
-<<<<<<< HEAD
 ```powershell
 python -m venv .venv; .\.venv\Scripts\Activate.ps1
 =======
@@ -44,7 +43,7 @@ cd dumroo-assignment
 pip install -r requirements.txt
 ```
 
-<<<<<<< HEAD
+
 2. Provide your Google Generative AI / Gemini API key (do not hardcode):
 
 ```powershell
@@ -58,7 +57,6 @@ setx GOOGLE_API_KEY "your_gemini_api_key_here"
 # then restart your terminal or reopen PowerShell
 ```
 
-<<<<<<< HEAD
 3. Run the Streamlit demo:
 
 ```powershell
@@ -74,7 +72,6 @@ streamlit run app.py
 # open http://localhost:8501
 ```
 
-<<<<<<< HEAD
 ---
 
 ## What this repository contains
@@ -100,6 +97,16 @@ Role-scope (example): only return rows where both `grade == admin_scope['grade']
 Access URL:
 http://localhost:8501
 
+## Working of the Project
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/0de3c9db-b2b0-44a6-8390-0ac8fac1a4ff" />
+
+
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/60b6e2c1-4272-4662-9903-a62ff2d84121" />
+
+
+
 
 🧪 Example Queries
 
@@ -109,7 +116,7 @@ Show me performance data for grade 8 from last week.
 List all upcoming quizzes scheduled for next week.
 Show students in grade 8 with scores above 70.
 Display all homework submissions from the East region.
->>>>>>> 5b3f33b56418625dbbe52c2cfd83694f101b5ecb
+
 
 ## Data schema (expected columns)
 
@@ -134,5 +141,4 @@ Examples: "Which students haven’t submitted homework?" | "Grade 8 students wit
 
 Security: never commit API keys; the app always applies the admin's role-scope filter before returning results.
 
-This README is intentionally minimal. Ask if you want it even shorter (one line) or prefer a single-sentence usage example added.
 
