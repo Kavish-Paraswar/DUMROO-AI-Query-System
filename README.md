@@ -1,116 +1,99 @@
-AI-Powered Natural Language Data Query System with Role-Based Access Control
+## DUMROO — AI Natural‑Language Data Query (Role‑Based)
 
-📋 Project Overview
+Concise, practical tool to let authorized admins ask natural‑language questions about student data.
+It translates English queries into safe Pandas filters (using a generative model), then applies the organization's role scope to enforce data visibility.
 
-This project demonstrates an AI system that allows admins to query structured student data using natural English questions.
-It integrates Google Gemini API with Pandas for intelligent data filtering and Streamlit for an interactive web interface.
+---
 
-Admins can only view data relevant to their assigned scope (grade and region), ensuring role-based data security.
+## Quick start (Windows PowerShell)
 
-🚀 Features
+1. Create a Python 3.10+ virtual environment and activate it.
 
-🗣️ Natural-language to Pandas query translation via Gemini 2.0
-
-🔐 Role-based access restriction (grade & region filter)
-
-📊 Real-time data filtering and visualization using Streamlit
-
-🧩 Clean, modular Python structure (easy to extend with databases)
-
-⚡ Lightweight CSV backend for rapid testing
-
-🏗️ Tech Stack
-Component	Technology
-AI Model	Google Gemini 2.0-Flash
-Language	Python 3.10 +
-Data	Pandas + CSV
-Interface	Streamlit
-Access Control	Custom Role-Scope Filter
-📁 Project Structure
-dumroo_assignment/
-│
-├── app.py              # Main Streamlit app
-├── data.csv            # Sample dataset
-└── requirements.txt    # Dependencies
-
-⚙️ Setup Instructions
-1️⃣ Clone the repository
-git clone https://github.com/<your-username>/dumroo-assignment.git
-cd dumroo-assignment
-
-2️⃣ Install dependencies
+```powershell
+python -m venv .venv; .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
+```
 
+2. Provide your Google Generative AI / Gemini API key (do not hardcode):
 
-If requirements.txt is missing:
-
-pip install pandas streamlit google-generativeai
-
-3️⃣ Configure Gemini API Key
-
-Never hardcode your API key.
-
-Windows (PowerShell):
-
+```powershell
 setx GOOGLE_API_KEY "your_gemini_api_key_here"
+# then restart your terminal or reopen PowerShell
+```
 
+3. Run the Streamlit demo:
 
-macOS / Linux (bash/zsh):
-
-export GOOGLE_API_KEY="your_gemini_api_key_here"
-
-
-Then restart the terminal.
-
-▶️ Run the Application
+```powershell
 streamlit run app.py
+# open http://localhost:8501
+```
 
+---
 
-Access URL:
-http://localhost:8501
+## What this repository contains
 
-🧪 Example Queries
+- `app.py` — Streamlit demo UI (query input, examples, results)
+- `data.csv` — small CSV dataset used by the demo
+- `requirements.txt` — Python dependency list
 
-Try typing these inside the web interface:
+If you remove or rename any of these, update `app.py` accordingly.
 
-Which students haven’t submitted their homework yet?
+---
 
-Show me performance data for grade 8 from last week.
+## High-level behavior / contract
 
-List all upcoming quizzes scheduled for next week.
+- Input: an English question about the CSV student data.
+- Output: a Pandas DataFrame of rows matching the sanitized filter.
+- Safety: the system always applies the admin's role-scope filter before returning results.
 
-Show students in grade 8 with scores above 70.
+Role-scope (example): only return rows where both `grade == admin_scope['grade']` and `region == admin_scope['region']`.
 
-Display all homework submissions from the East region.
+---
 
-🔒 Role-Based Access Logic
+## Data schema (expected columns)
 
-Each admin can only view records matching:
+- `student_name` — string
+- `grade` — integer
+- `class` — string (class/section)
+- `homework_status` — string (e.g. "submitted" / "not submitted")
+- `quiz_score` — numeric
+- `quiz_date` — ISO date (YYYY-MM-DD)
+- `region` — string
 
-(grade == admin_scope["grade"]) & (region == admin_scope["region"])
+Make sure `data.csv` uses these headers or adapt `app.py` to your schema.
 
+---
 
-This ensures restricted visibility even if broader queries are made.
+## Example queries to try
 
-📊 Sample Output
-[AI generated filter] grade == 8 and quiz_date >= '2025-11-05'
-[Sanitized] grade == 8 and quiz_date >= '2025-11-05'
+- "Which students haven’t submitted their homework yet?"
+- "Show students in grade 8 with quiz_score > 70"
+- "List upcoming quizzes for the East region"
 
-  student_name  grade class homework_status  quiz_score   quiz_date region
-1        Arjun      8     A    not submitted           0  2025-11-09   East
-3        Tanvi      8     B    not submitted           0  2025-11-11   East
+The model suggests a Pandas filter; the app sanitizes it and enforces the admin scope before running.
 
-💡 Future Improvements
+---
 
-🔁 Connect to live database (MySQL / MongoDB)
+## Security notes
 
-💬 Add multi-admin login with JWT or session auth
+- Never commit API keys. Use environment variables or secure secrets management.
+- The demo enforces a final programmatic filter (grade + region) to limit visibility.
+- Treat the model output as untrusted text — always sanitize and validate before evaluation.
 
-🤖 Extend Gemini prompts for follow-up contextual questions
+---
 
-📱 Deploy on Streamlit Cloud or Render for demo access
+## Extending this project
 
-📜 License
+- Swap `data.csv` for a database (Postgres, MySQL, MongoDB) and push filtering to the DB.
+- Add authentication (JWT / sessions) and persist admin scopes per user.
+- Improve prompt engineering to support follow-ups and clarifying questions.
 
-This project is for educational use under the Dumroo AI Developer Assignment.
-Feel free to modify or extend for learning purposes.
+---
+
+## License & contact
+
+Educational / assignment use. Modify freely for learning. For questions, open an issue in the repository.
+
+---
+
+Quick verification: after editing, run the PowerShell quick start steps above to confirm the demo starts and the UI loads at http://localhost:8501.
